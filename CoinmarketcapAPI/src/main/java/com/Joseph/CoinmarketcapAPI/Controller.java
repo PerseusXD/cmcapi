@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.apache.http.HttpHeaders;
@@ -27,6 +28,7 @@ public class Controller {
 	 private static String apiKey = "f08ddd72-4d03-436f-b829-a5fec48c07d7";
 	 
 	@GetMapping("/getFeed")
+	@CrossOrigin(origins = {"http://localhost:3000", "https://zecmarketcap.vercel.app"})
 	public JSONArray getFeed() throws ParseException {
 		
 		//String uri = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";

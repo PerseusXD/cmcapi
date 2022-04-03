@@ -35,7 +35,7 @@ public class Controller {
 		String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 	    List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
 	    paratmers.add(new BasicNameValuePair("start","1"));
-	    paratmers.add(new BasicNameValuePair("limit","50"));
+	    paratmers.add(new BasicNameValuePair("limit","80"));
 	    paratmers.add(new BasicNameValuePair("convert","USD"));
 	    
 	    String result = "";

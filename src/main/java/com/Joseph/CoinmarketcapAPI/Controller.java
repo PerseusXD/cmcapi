@@ -25,7 +25,7 @@ public class Controller {
 
 
 	@GetMapping("/getFeed")
-	@CrossOrigin(origins = {"http://localhost:3000", "https://zecmarketcap.vercel.app"})
+	@CrossOrigin(origins = {"http://localhost:3000", "https://zecmarketcap.vercel.app", "zeccap.com", "www.zeccap.com", "zecmarketcap.com", "www.zecmarketcap.com"})
 	public JSONArray getFeed() throws ParseException {
 		long currTime = System.currentTimeMillis();
 		//The max number of calls we can make in a day assuming free version of CMC API

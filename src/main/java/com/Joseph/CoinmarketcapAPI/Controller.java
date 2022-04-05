@@ -30,7 +30,7 @@ public class Controller {
 		long currTime = System.currentTimeMillis();
 		//The max number of calls we can make in a day assuming free version of CMC API
 		//Worst case scenario to avoid API full usage is 1 call every 4.32 minutes or 259200 miliseconds
-		if (currTime - lastRefreshed > 259200) { 
+		if (currTime - lastRefreshed > 60000) { 
 			evictAllCaches();
 			lastRefreshed = System.currentTimeMillis();
 		}

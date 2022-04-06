@@ -27,11 +27,7 @@ import org.json.simple.parser.ParseException;
 public class FeedService {
 
 	//private static String apiKey = "f08ddd72-4d03-436f-b829-a5fec48c07d7";
-	private static String apiKey = "f113f572-0d49-45d6-879a-5b2c0b964a5b";
-
-
-
-	private long lastRefreshed = 0;
+	private static String apiKeyCMC = "f113f572-0d49-45d6-879a-5b2c0b964a5b";
 
 	@Cacheable("data")
 	public JSONArray getFeed() throws ParseException {		
@@ -72,7 +68,7 @@ public class FeedService {
 		HttpGet request = new HttpGet(query.build());
 
 		request.setHeader(HttpHeaders.ACCEPT, "application/json");
-		request.addHeader("X-CMC_PRO_API_KEY", apiKey);
+		request.addHeader("X-CMC_PRO_API_KEY", apiKeyCMC);
 
 		CloseableHttpResponse response = client.execute(request);
 

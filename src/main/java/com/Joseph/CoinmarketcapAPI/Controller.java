@@ -25,12 +25,12 @@ public class Controller {
 
 
 	@GetMapping("/getFeed")
-	@CrossOrigin(origins = {"http://localhost:3000", "https://zecmarketcap.vercel.app", "zeccap.com", "www.zeccap.com", "zecmarketcap.com", "www.zecmarketcap.com"})
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/"})
 	public JSONArray getFeed() throws ParseException {
 		long currTime = System.currentTimeMillis();
 		//The max number of calls we can make in a day assuming free version of CMC API
 		//Worst case scenario to avoid API full usage is 1 call every 4.32 minutes or 259200 miliseconds
-		if (currTime - lastRefreshed > 60000) { 
+		if (currTime - lastRefreshed > 259200) { 
 			evictAllCaches();
 			lastRefreshed = System.currentTimeMillis();
 		}

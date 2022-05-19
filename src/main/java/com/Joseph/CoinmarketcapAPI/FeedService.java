@@ -63,7 +63,7 @@ public class FeedService {
 		double zcashPercentChange1h = 1;
 		double zcashPercentChange24h = 1;
 
-		DecimalFormat fourDecimals = new DecimalFormat("#.####");
+		DecimalFormat threeDecimals = new DecimalFormat("#.###");
 		DecimalFormat twoDecimals = new DecimalFormat("#.##");
 		
 		for(int i=0; i < LIST_CAP; i++) {
@@ -84,7 +84,7 @@ public class FeedService {
 			double marketCap = (double)usd.get("market_cap");
 			System.out.println("marketcap for " + name + " is " + marketCap);
 
-			curr.setPriceUSD(Double.parseDouble(twoDecimals.format(price)));
+			curr.setPriceUSD(Double.parseDouble(threeDecimals.format(price)));
 			curr.setOneHrZEC(percentChange1hr);
 			curr.setTwentyFourHrZEC(percentChange24hr);
 			curr.setMarketcapZEC(marketCap);
@@ -100,9 +100,9 @@ public class FeedService {
 		
 
 		for(Data d: toReturn) {
-			d.setPriceZEC(Double.parseDouble(fourDecimals.format(d.getPriceUSD()/zcashPrice)));
-			d.setOneHrZEC(Double.parseDouble(twoDecimals.format(d.getOneHrZEC()/zcashPercentChange1h)));
-			d.setTwentyFourHrZEC(Double.parseDouble(twoDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
+			d.setPriceZEC(Double.parseDouble(threeDecimals.format(d.getPriceUSD()/zcashPrice)));
+			d.setOneHrZEC(Double.parseDouble(threeDecimals.format(d.getOneHrZEC()/zcashPercentChange1h)));
+			d.setTwentyFourHrZEC(Double.parseDouble(threeDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
 			d.setMarketcapZEC(Double.parseDouble(twoDecimals.format(d.getMarketcapZEC()/zcashPrice)));
 		}
 		return toReturn;

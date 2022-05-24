@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -40,7 +44,17 @@ public class Controller {
 		return feedService.getFeed();
 
 	}
-
+	
+	@GetMapping("/getLastRefreshed")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/"})
+	public String getLastRefreshed() {
+		ZonedDateTime dateTime = Instant.ofEpochMilli(lastRefreshed)
+	            .atZone(ZoneId.of("America/Chicago"));
+		
+		String formatted = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+		System.out.println(lastRefreshed);
+		return formatted + " - GMT-5(Chicago)";
+	}
 	public void evictAllCaches() {
 		cacheManager.getCacheNames().stream()
 		.forEach(cacheName -> cacheManager.getCache(cacheName).clear());

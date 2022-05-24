@@ -62,6 +62,7 @@ public class FeedService {
 		double zcashPrice = 1;
 		double zcashPercentChange1h = 1;
 		double zcashPercentChange24h = 1;
+		int zCashId = 0;
 
 		DecimalFormat threeDecimals = new DecimalFormat("#.###");
 		DecimalFormat twoDecimals = new DecimalFormat("#.##");
@@ -73,7 +74,9 @@ public class FeedService {
 
 			String name = current.get("name").toString();
 			curr.setName(name);
-
+			
+			String symbol = current.get("symbol").toString();
+			curr.setSymbol(symbol);
 
 
 			JSONObject quote = (JSONObject) current.get("quote");
@@ -82,17 +85,17 @@ public class FeedService {
 			double percentChange1hr = (double)usd.get("percent_change_1h");
 			double percentChange24hr = (double)usd.get("percent_change_24h");
 			double marketCap = (double)usd.get("market_cap");
-			System.out.println("marketcap for " + name + " is " + marketCap);
-
+			
 			curr.setPriceUSD(Double.parseDouble(threeDecimals.format(price)));
 			curr.setOneHrZEC(percentChange1hr);
 			curr.setTwentyFourHrZEC(percentChange24hr);
 			curr.setMarketcapZEC(marketCap);
-
+			curr.setSymbol(symbol);
 			if (name.equals("Zcash")) {
 				zcashPrice = price;
 				zcashPercentChange1h = percentChange1hr;
-				zcashPercentChange24h = percentChange24hr;		
+				zcashPercentChange24h = percentChange24hr;	
+				zCashId = i;
 			}
 			toReturn.add(curr);
 		}
@@ -105,10 +108,21 @@ public class FeedService {
 			d.setTwentyFourHrZEC(Double.parseDouble(threeDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
 			d.setMarketcapZEC(Double.parseDouble(twoDecimals.format(d.getMarketcapZEC()/zcashPrice)));
 		}
+		
+		toReturn = moveDataToFront(toReturn, zCashId);
 		return toReturn;
 	}
-
-
+	
+	//to move zcash to front of list
+	private List<Data> moveDataToFront(List<Data> list, int index){
+		Data zCash = list.get(index);
+		Data newZCash = new Data(0,zCash.getName(),zCash.getSymbol(), 
+				zCash.getPriceUSD(), zCash.getPriceZEC(), zCash.getOneHrZEC(), zCash.getTwentyFourHrZEC(), 
+				zCash.getMarketcapZEC());
+		list.remove(index);
+		list.add(0, newZCash);
+		return list;
+	}
 
 
 	public static String makeAPICall(String uri, List<NameValuePair> parameters)

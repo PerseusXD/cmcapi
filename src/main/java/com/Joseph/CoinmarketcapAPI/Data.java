@@ -2,13 +2,31 @@ package com.Joseph.CoinmarketcapAPI;
 
 public class Data {
 
+	
 	private int ID;
 	private String name;
+	private String symbol;
 	private double priceUSD;
 	private double priceZEC;
 	private double oneHrZEC;
 	private double twentyFourHrZEC;
 	private double marketcapZEC;
+
+	public Data(int iD, String name, String symbol, double priceUSD, double priceZEC, double oneHrZEC,
+			double twentyFourHrZEC, double marketcapZEC) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.symbol = symbol;
+		this.priceUSD = priceUSD;
+		this.priceZEC = priceZEC;
+		this.oneHrZEC = oneHrZEC;
+		this.twentyFourHrZEC = twentyFourHrZEC;
+		this.marketcapZEC = marketcapZEC;
+	}
+	
+	public Data() {
+	}
 
 	public int getID() {
 		return ID;
@@ -18,6 +36,12 @@ public class Data {
 	}
 	public String getName() {
 		return name;
+	}
+	public String getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 	public void setName(String name) {
 		this.name = name;

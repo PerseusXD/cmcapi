@@ -1,7 +1,7 @@
 
 # zecmarketcap API
 
-Backend API for zecmarketcap
+Backend API for zecmarketcap.com
 
 
 

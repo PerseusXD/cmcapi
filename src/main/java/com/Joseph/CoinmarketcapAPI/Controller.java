@@ -47,13 +47,8 @@ public class Controller {
 	
 	@GetMapping("/getLastRefreshed")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/"})
-	public String getLastRefreshed() {
-		ZonedDateTime dateTime = Instant.ofEpochMilli(lastRefreshed)
-	            .atZone(ZoneId.of("America/Chicago"));
-		
-		String formatted = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-		System.out.println(lastRefreshed);
-		return formatted + " - GMT-5(Chicago)";
+	public long getLastRefreshed() {
+		return lastRefreshed;
 	}
 	public void evictAllCaches() {
 		cacheManager.getCacheNames().stream()

@@ -31,7 +31,7 @@ public class Controller {
 
 
 	@GetMapping("/getFeed")
-	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/"})
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/","https://zec.vercel.app/"})
 	public List<Data> getFeed() throws ParseException {
 		long currTime = System.currentTimeMillis();
 		//The max number of calls we can make in a day assuming free version of CMC API
@@ -46,7 +46,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/getLastRefreshed")
-	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/"})
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://zec.vercel.app/"})
 	public long getLastRefreshed() {
 		return lastRefreshed;
 	}

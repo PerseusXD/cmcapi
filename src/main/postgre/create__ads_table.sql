@@ -1,0 +1,8 @@
+-- Create Ad Post
+
+CREATE TABLE ads
+    (ID NUMERIC,
+     SENDER VARCHAR(255),
+     POSTING VARCHAR(255),
+     POST_TIME VARCHAR(255)
+    )

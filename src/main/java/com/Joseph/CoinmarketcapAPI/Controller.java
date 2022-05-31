@@ -28,11 +28,19 @@ public class Controller {
 
 	@Autowired
 	private FeedService feedService;
+	
+	@Autowired
+	private AdsRepository adsRepo;
 
+	@GetMapping("/status")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/","https://zec.vercel.app/"})
+	public String status() {
+		return "Status is up";
+	}
 
 	@GetMapping("/getFeed")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/","https://zec.vercel.app/"})
-	public List<Data> getFeed() throws ParseException {
+	public List<ZECCapListing> getFeed() throws ParseException {
 		long currTime = System.currentTimeMillis();
 		//The max number of calls we can make in a day assuming free version of CMC API
 		//Worst case scenario to avoid API full usage is 1 call every 4.32 minutes or 259200 miliseconds
@@ -50,6 +58,16 @@ public class Controller {
 	public long getLastRefreshed() {
 		return lastRefreshed;
 	}
+	
+	@GetMapping("/getAds")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://zec.vercel.app/"})
+	public List<Post> getAds() {
+		List<Post> ads = adsRepo.findAll();
+		return ads;
+	}
+	
+	
+	
 	public void evictAllCaches() {
 		cacheManager.getCacheNames().stream()
 		.forEach(cacheName -> cacheManager.getCache(cacheName).clear());

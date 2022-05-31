@@ -33,7 +33,7 @@ public class FeedService {
 
 
 	@Cacheable("data")
-	public List<Data> getFeed() throws ParseException {		
+	public List<ZECCapListing> getFeed() throws ParseException {		
 		//String uri = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 		String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 		List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
@@ -55,7 +55,7 @@ public class FeedService {
 		JSONObject json = (JSONObject) parser.parse(result);  
 		JSONArray array = (JSONArray) json.get("data");
 
-		List<Data> toReturn = new ArrayList<Data>();
+		List<ZECCapListing> toReturn = new ArrayList<ZECCapListing>();
 
 		//get zec price info
 
@@ -66,10 +66,11 @@ public class FeedService {
 
 		DecimalFormat threeDecimals = new DecimalFormat("#.###");
 		DecimalFormat twoDecimals = new DecimalFormat("#.##");
+		DecimalFormat zeroDecimals = new DecimalFormat("#");
 		
 		for(int i=0; i < LIST_CAP; i++) {
 			JSONObject current = (JSONObject) array.get(i);
-			Data curr = new Data();
+			ZECCapListing curr = new ZECCapListing();  
 			curr.setID(i+1);
 
 			String name = current.get("name").toString();
@@ -86,7 +87,7 @@ public class FeedService {
 			double percentChange24hr = (double)usd.get("percent_change_24h");
 			double marketCap = (double)usd.get("market_cap");
 			
-			curr.setPriceUSD(Double.parseDouble(threeDecimals.format(price)));
+			curr.setPriceUSD(Double.parseDouble(twoDecimals.format(price)));
 			curr.setOneHrZEC(percentChange1hr);
 			curr.setTwentyFourHrZEC(percentChange24hr);
 			curr.setMarketcapZEC(marketCap);
@@ -102,11 +103,11 @@ public class FeedService {
 
 		
 
-		for(Data d: toReturn) {
-			d.setPriceZEC(Double.parseDouble(threeDecimals.format(d.getPriceUSD()/zcashPrice)));
-			d.setOneHrZEC(Double.parseDouble(threeDecimals.format(d.getOneHrZEC()/zcashPercentChange1h)));
-			d.setTwentyFourHrZEC(Double.parseDouble(threeDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
-			d.setMarketcapZEC(Double.parseDouble(twoDecimals.format(d.getMarketcapZEC()/zcashPrice)));
+		for(ZECCapListing d: toReturn) {
+			d.setPriceZEC(Double.parseDouble(twoDecimals.format(d.getPriceUSD()/zcashPrice)));
+			d.setOneHrZEC(Double.parseDouble(twoDecimals.format(d.getOneHrZEC()/zcashPercentChange1h)));
+			d.setTwentyFourHrZEC(Double.parseDouble(twoDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
+			d.setMarketcapZEC(Double.parseDouble(zeroDecimals.format(d.getMarketcapZEC()/zcashPrice)));
 		}
 		
 		toReturn = moveDataToFront(toReturn, zCashId);
@@ -114,9 +115,9 @@ public class FeedService {
 	}
 	
 	//to move zcash to front of list
-	private List<Data> moveDataToFront(List<Data> list, int index){
-		Data zCash = list.get(index);
-		Data newZCash = new Data(0,zCash.getName(),zCash.getSymbol(), 
+	private List<ZECCapListing> moveDataToFront(List<ZECCapListing> list, int index){
+		ZECCapListing zCash = list.get(index);
+		ZECCapListing newZCash = new ZECCapListing(0,zCash.getName(),zCash.getSymbol(), 
 				zCash.getPriceUSD(), zCash.getPriceZEC(), zCash.getOneHrZEC(), zCash.getTwentyFourHrZEC(), 
 				zCash.getMarketcapZEC());
 		list.remove(index);

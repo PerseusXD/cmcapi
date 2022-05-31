@@ -1,6 +1,6 @@
 package com.Joseph.CoinmarketcapAPI;
 
-public class Data {
+public class ZECCapListing {
 
 	
 	private int ID;
@@ -12,7 +12,7 @@ public class Data {
 	private double twentyFourHrZEC;
 	private double marketcapZEC;
 
-	public Data(int iD, String name, String symbol, double priceUSD, double priceZEC, double oneHrZEC,
+	public ZECCapListing(int iD, String name, String symbol, double priceUSD, double priceZEC, double oneHrZEC,
 			double twentyFourHrZEC, double marketcapZEC) {
 		super();
 		ID = iD;
@@ -25,7 +25,7 @@ public class Data {
 		this.marketcapZEC = marketcapZEC;
 	}
 	
-	public Data() {
+	public ZECCapListing() {
 	}
 
 	public int getID() {

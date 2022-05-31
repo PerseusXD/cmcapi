@@ -67,6 +67,7 @@ public class FeedService {
 		DecimalFormat threeDecimals = new DecimalFormat("#.###");
 		DecimalFormat twoDecimals = new DecimalFormat("#.##");
 		DecimalFormat zeroDecimals = new DecimalFormat("#");
+		DecimalFormat eightDecimals = new DecimalFormat("#.########");
 		
 		for(int i=0; i < LIST_CAP; i++) {
 			JSONObject current = (JSONObject) array.get(i);
@@ -104,7 +105,7 @@ public class FeedService {
 		
 
 		for(ZECCapListing d: toReturn) {
-			d.setPriceZEC(Double.parseDouble(twoDecimals.format(d.getPriceUSD()/zcashPrice)));
+			d.setPriceZEC(Double.parseDouble(eightDecimals.format(d.getPriceUSD()/zcashPrice)));
 			d.setOneHrZEC(Double.parseDouble(twoDecimals.format(d.getOneHrZEC()/zcashPercentChange1h)));
 			d.setTwentyFourHrZEC(Double.parseDouble(twoDecimals.format(d.getTwentyFourHrZEC()/zcashPercentChange24h)));
 			d.setMarketcapZEC(Double.parseDouble(zeroDecimals.format(d.getMarketcapZEC()/zcashPrice)));

@@ -10,9 +10,6 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "sender")
-	private String sender;
-	
 	@Column(name = "message")
 	private String message;
 	
@@ -21,23 +18,15 @@ public class Post {
 	
 	public Post() {
 		super();
-		this.sender = "";
 		this.message = "";
 		this.postTime = "";
 	}
-	public Post(String sender, String message, String postTime) {
+	public Post(String message, String postTime) {
 		super();
-		this.sender = sender;
 		this.message = message;
 		this.postTime = postTime;
 	}
 	
-	public String getSender() {
-		return sender;
-	}
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
 	public String getMessage() {
 		return message;
 	}

@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -62,8 +63,12 @@ public class Controller {
 	@GetMapping("/getAds")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://zec.vercel.app/"})
 	public List<Post> getAds() {
-		List<Post> ads = adsRepo.findAll();
-		return ads;
+		//List<Post> ads = adsRepo.findAll();
+		//return ads;
+		
+		List<Post> temp = tempAds();
+		return temp;
+		
 	}
 	
 	
@@ -76,6 +81,18 @@ public class Controller {
 	@Scheduled(fixedRate = 6000)
 	public void evictAllcachesAtIntervals() {
 		evictAllCaches();
+	}
+	
+	private List<Post> tempAds(){
+		List<Post> temp = new ArrayList<Post>();
+		
+		Post post1 = new Post("ad message 1" , "1654097359");
+		Post post2 = new Post("ad message 2" , "1651418955");
+		
+		temp.add(post1);
+		temp.add(post2);
+		
+		return temp;
 	}
 
 

@@ -64,7 +64,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/getMessages")
-	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://zec.vercel.app/"})
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
 	public List<Post> getAds() {
 		List<Post> ads = messageRepo.findAll();
 		return ads;
@@ -72,6 +72,7 @@ public class Controller {
 	}
 	
 	@PostMapping("/addMessage")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
 	public Post addAd(@RequestBody Post toAdd) {
 		return messageRepo.save(toAdd);
 	}

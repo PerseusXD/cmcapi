@@ -6,6 +6,9 @@ import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
@@ -23,7 +26,7 @@ import org.json.simple.parser.ParseException;
 public class Controller {
 
 	private long lastRefreshed = System.currentTimeMillis();
-
+	
 	@Autowired
 	CacheManager cacheManager;
 
@@ -31,7 +34,7 @@ public class Controller {
 	private FeedService feedService;
 	
 	@Autowired
-	private AdsRepository adsRepo;
+	private MessageRepository messageRepo;
 
 	@GetMapping("/status")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/","https://zec.vercel.app/"})
@@ -60,18 +63,18 @@ public class Controller {
 		return lastRefreshed;
 	}
 	
-	@GetMapping("/getAds")
+	@GetMapping("/getMessages")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://zec.vercel.app/"})
 	public List<Post> getAds() {
-		//List<Post> ads = adsRepo.findAll();
-		//return ads;
-		
-		List<Post> temp = tempAds();
-		return temp;
+		List<Post> ads = messageRepo.findAll();
+		return ads;
 		
 	}
 	
-	
+	@PostMapping("/addMessage")
+	public Post addAd(@RequestBody Post toAdd) {
+		return messageRepo.save(toAdd);
+	}
 	
 	public void evictAllCaches() {
 		cacheManager.getCacheNames().stream()
@@ -83,17 +86,6 @@ public class Controller {
 		evictAllCaches();
 	}
 	
-	private List<Post> tempAds(){
-		List<Post> temp = new ArrayList<Post>();
-		
-		Post post1 = new Post("ad message 1" , "1654097359");
-		Post post2 = new Post("ad message 2" , "1651418955");
-		
-		temp.add(post1);
-		temp.add(post2);
-		
-		return temp;
-	}
 
 
 

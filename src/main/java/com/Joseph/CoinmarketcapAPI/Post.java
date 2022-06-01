@@ -10,21 +10,32 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(name = "post_time")
+	private String post_time;  //epoch time
+	
 	@Column(name = "message")
 	private String message;
 	
-	@Column(name = "post_time")
-	private String postTime;  //epoch time
+	@Column(name = "amount")
+	private Integer amount;
+	
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 	
 	public Post() {
 		super();
 		this.message = "";
-		this.postTime = "";
+		this.post_time = "";
 	}
-	public Post(String message, String postTime) {
+	public Post(String message, String post_time, Integer amount) {
 		super();
 		this.message = message;
-		this.postTime = postTime;
+		this.post_time = post_time;
+		this.amount = amount;
 	}
 	
 	public String getMessage() {
@@ -33,11 +44,11 @@ public class Post {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getPostTime() {
-		return postTime;
+	public String getpost_time() {
+		return post_time;
 	}
-	public void setPostTime(String postTime) {
-		this.postTime = postTime;
+	public void setPostTime(String post_time) {
+		this.post_time = post_time;
 	}
 
 }

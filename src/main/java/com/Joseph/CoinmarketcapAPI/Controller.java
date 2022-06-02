@@ -66,8 +66,27 @@ public class Controller {
 	@GetMapping("/getMessages")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
 	public List<Post> getAds() {
-		List<Post> ads = messageRepo.findAll();
-		return ads;
+		List<Post> messages = messageRepo.findAll();
+		return messages;
+	}
+	
+	@GetMapping("/getMostRecentMessage")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
+	public Post getMostRecentMessage() {
+		List<Post> messages = messageRepo.findAll();
+				
+		Integer latest = 0;
+		int latestPost = 0;
+		for(int i=0;i<messages.size();i++) {
+			Post curr = messages.get(i);
+			if (Integer.parseInt(curr.getpost_time()) > latest) {
+				latestPost = i;
+				latest = Integer.parseInt(curr.getpost_time());
+			}
+		}
+		
+		return messages.get(latestPost);
+		
 		
 	}
 	

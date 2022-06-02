@@ -20,6 +20,7 @@ with open("memooutput.txt", "r") as oldtxns:
             memo = t["memo"]
             params = {"post_time": datetime, "amount": amount, "message": memo}
             txnlist.append(params)
+            print("appending: "+ params)
 
 
         times = [int(i["post_time"]) for i in records]
@@ -28,8 +29,8 @@ with open("memooutput.txt", "r") as oldtxns:
             print(post);
             if post["message"] == None or post["amount"] < 100000:
                 continue
-            elif post["post_time"] in times:
-                continue
+        #    elif post["post_time"] in times:
+        #        continue
             else:
                 r = requests.post(url = URL, data=json.dumps(post), headers=headers)
                 print("post command:")

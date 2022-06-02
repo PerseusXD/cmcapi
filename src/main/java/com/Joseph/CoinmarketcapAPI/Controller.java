@@ -72,7 +72,7 @@ public class Controller {
 	
 	@GetMapping("/getMostRecentMessage")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
-	public Post getMostRecentMessage() {
+	public String getMostRecentMessage() {
 		List<Post> messages = messageRepo.findAll();
 				
 		Integer latest = 0;
@@ -85,7 +85,7 @@ public class Controller {
 			}
 		}
 		
-		return messages.get(latestPost);
+		return messages.get(latestPost).getMessage();
 		
 		
 	}

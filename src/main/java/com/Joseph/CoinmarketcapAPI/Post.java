@@ -3,13 +3,10 @@ package com.Joseph.CoinmarketcapAPI;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ads", schema = "public")
+@Table(name = "messages", schema = "public")
 public class Post {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
 	@Column(name = "post_time")
 	private String post_time;  //epoch time
 	

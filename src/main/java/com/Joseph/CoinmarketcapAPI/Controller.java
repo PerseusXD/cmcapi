@@ -65,7 +65,7 @@ public class Controller {
 	
 	@GetMapping("/getMessages")
 	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
-	public List<Post> getAds() {
+	public List<Post> getMessages() {
 		List<Post> messages = messageRepo.findAll();
 		return messages;
 	}
@@ -87,6 +87,23 @@ public class Controller {
 		
 		return messages.get(latestPost).getMessage();
 		
+	}
+	
+	@GetMapping("/getAds")
+	@CrossOrigin(origins = {"http://localhost:3000/", "https://zecmarketcap.vercel.app/", "https://www.zeccap.com/", "https://www.zecmarketcap.com/", "https://cmc-api-backend.herokuapp.com/", "https://zec.vercel.app/"})
+	public List<Post> getAds() {
+		List<Post> messages = messageRepo.findAll();
+		List<Post> toReturn = new ArrayList<Post>();
+		for(int i=0;i<messages.size();i++) {
+			Post curr = messages.get(i);
+			
+			if (curr.getMessage().startsWith("ZMC::")){
+				toReturn.add(curr);
+				
+			}
+		}
+		
+		return toReturn;
 		
 	}
 	

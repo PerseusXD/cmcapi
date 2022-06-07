@@ -17,7 +17,9 @@ with open("memooutput.txt", "r") as oldtxns:
         for t in txns:
             datetime = t["datetime"]
             amount = t["amount"]
-            memo = t["memo"]
+            memo = None
+            if 'memo' in t:
+                memo = t["memo"]
             params = {"post_time": datetime, "amount": amount, "message": memo}
             txnlist.append(params)
 
